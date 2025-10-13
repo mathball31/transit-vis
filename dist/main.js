@@ -1,0 +1,1 @@
+(()=>{"use strict";const t=document.getElementById("canvas").getContext("2d"),l=new class{width;height;constructor(t,l){this.width=t??300,this.height=l??300}};if(console.log("help"),null==t)throw 1;t.fillStyle="rgb(200 0 0)",t.fillRect(10,10,l.width,l.height),t.fillRect(10,10,50,50),t.fillStyle="rgb(0 0 200 / 50%)",t.fillRect(30,30,50,50)})();
