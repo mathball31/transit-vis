@@ -1,7 +1,13 @@
-. render screen
-. display map
+x render screen
+x display map
+x different distributions
+. change distribution live
+
+
 . sample riders/locations
     . display
 . route
     . display
 
+
+. automate compile and pack
