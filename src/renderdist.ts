@@ -1,7 +1,7 @@
 import { type Distribution } from "./distribution.js"
 
 
-export function renderDistribution(ctx: CanvasRenderingContext2D, dist: Distribution) {
+export function renderDistribution(ctx: CanvasRenderingContext2D, dist: Distribution, dx: number, dy: number) {
     const imageData = ctx.createImageData(dist.width, dist.height)
     const data = imageData.data
     console.log(dist.data)
@@ -14,7 +14,7 @@ export function renderDistribution(ctx: CanvasRenderingContext2D, dist: Distribu
 
     console.log(data)
 
-    ctx.putImageData(imageData, 10, 10)
+    ctx.putImageData(imageData, dx, dy)
 
 
 
