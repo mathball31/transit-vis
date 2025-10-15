@@ -1,0 +1,11 @@
+<canvas #mapCanvas id="canvas" width="600" height="600"
+        style="border: 1px solid black;">
+</canvas>
+<p>mu: {{mu()}}</p>
+<mat-slider min="0" max="1" step=".001">
+    <input matSliderThumb (input)="render()" [(ngModel)]="mu">
+</mat-slider>
+<p>sigma: {{sigma()}}</p>
+<mat-slider min="0" max="1" step=".001">
+    <input matSliderThumb (input)="render()" [(ngModel)]="sigma">
+</mat-slider>

@@ -4,7 +4,10 @@ x different distributions
 x change distribution live
 
 x integrate with angular or react
-. update sliders to angular and make them work
+x update sliders to angular and make them work
+x integrate slider into rendering
+. factor canvas out of normal-distribution-controls
+. angularize the other distributions
 
 
 . sample riders/locations
@@ -13,4 +16,4 @@ x integrate with angular or react
     . display
 
 
-. automate compile and pack
+x automate compile and pack
