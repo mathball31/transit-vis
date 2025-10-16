@@ -1,4 +1,4 @@
-import { Component, ElementRef, input, Input, model, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, input, model, ViewChild, AfterViewInit } from '@angular/core';
 import {MatSliderModule} from '@angular/material/slider'
 import { FormsModule } from '@angular/forms';
 import { renderDistribution } from '../../renderdist';
@@ -26,9 +26,6 @@ export class NormalDistributionControl implements AfterViewInit {
     private canvas: ElementRef<HTMLCanvasElement> = {} as ElementRef
 
     private ctx: CanvasRenderingContext2D | null | undefined
-
-    constructor() {
-    }
 
     ngAfterViewInit() {
         this.ctx = this.canvas.nativeElement.getContext('2d')

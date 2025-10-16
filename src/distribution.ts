@@ -30,18 +30,20 @@ export function blankDistribution(width = 300, height = 300): Distribution {
 }
 
 export function linearGradient(width = 300, height = 300): Distribution {
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     function formula(x: number, y: number) {
         return x / width
     }
+    /* eslint-enable @typescript-eslint/no-unused-vars */
     return fillDistributionFromFormula(width, height, formula)
 }
 
 export function normalDistribution(width = 300, height = 300, mu: number = width/2, sigma: number = width/6): Distribution {
-    // const mu = width/2
-    // const sigma = width/6
-    const normalizeFactor = Math.sqrt(2 * Math.PI * sigma)
+    // const normalizeFactor = Math.sqrt(2 * Math.PI * sigma)
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     function formula(x: number, y: number) {
         return Math.exp(-0.5 * ((x-mu)/sigma)**2 )
     }
+    /* eslint-enable @typescript-eslint/no-unused-vars */
     return fillDistributionFromFormula(width, height, formula)
 }
