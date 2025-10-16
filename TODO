@@ -6,7 +6,7 @@ x change distribution live
 x integrate with angular or react
 x update sliders to angular and make them work
 x integrate slider into rendering
-. factor canvas out of normal-distribution-controls
+x factor canvas out of normal-distribution-controls
 . angularize the other distributions
 
 

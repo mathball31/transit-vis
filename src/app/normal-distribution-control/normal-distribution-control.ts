@@ -1,8 +1,9 @@
-import { Component, ElementRef, input, model, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, input, model, ViewChild, AfterViewInit, inject } from '@angular/core';
 import {MatSliderModule} from '@angular/material/slider'
 import { FormsModule } from '@angular/forms';
 import { renderDistribution } from '../../renderdist';
 import { normalDistribution } from '../../distribution';
+import { CanvasContextWrapper } from '../canvas-context-wrapper';
 
 @Component({
     selector: 'tv-normal-distribution-control',
@@ -22,21 +23,19 @@ export class NormalDistributionControl implements AfterViewInit {
         green: .5,
         alpha: 1,
     }
-    @ViewChild('mapCanvas')
-    private canvas: ElementRef<HTMLCanvasElement> = {} as ElementRef
-
-    private ctx: CanvasRenderingContext2D | null | undefined
+    private canvasContextWrapper = inject(CanvasContextWrapper)
+    private canvasContext: CanvasRenderingContext2D | undefined
 
     ngAfterViewInit() {
-        this.ctx = this.canvas.nativeElement.getContext('2d')
+        this.canvasContext = this.canvasContextWrapper.context 
         this.render()
     }
 
     render() {
         this.dist = normalDistribution(this.width(), this.height(), this.mu() * this.width(), this.sigma() * this.width())
-        if (this.ctx == null || this.ctx == undefined) {
+        if (this.canvasContext == undefined) {
             throw 1
         }
-        renderDistribution(this.ctx, this.dist, 0, 0, this.color)
+        renderDistribution(this.canvasContext, this.dist, 0, 0, this.color)
     }
 }
