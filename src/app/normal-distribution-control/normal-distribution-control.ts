@@ -5,7 +5,7 @@ import { renderDistribution } from '../../renderdist';
 import { normalDistribution } from '../../distribution';
 
 @Component({
-    selector: 'app-normal-distribution-control',
+    selector: 'tv-normal-distribution-control',
     imports: [MatSliderModule, FormsModule],
     templateUrl: './normal-distribution-control.html',
     styleUrl: './normal-distribution-control.css'
