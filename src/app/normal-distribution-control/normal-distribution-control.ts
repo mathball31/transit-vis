@@ -1,4 +1,4 @@
-import { Component, ElementRef, input, Input, model, ViewChild } from '@angular/core';
+import { Component, ElementRef, input, Input, model, ViewChild, AfterViewInit } from '@angular/core';
 import {MatSliderModule} from '@angular/material/slider'
 import { FormsModule } from '@angular/forms';
 import { renderDistribution } from '../../renderdist';
@@ -10,7 +10,7 @@ import { normalDistribution } from '../../distribution';
     templateUrl: './normal-distribution-control.html',
     styleUrl: './normal-distribution-control.css'
 })
-export class NormalDistributionControl {
+export class NormalDistributionControl implements AfterViewInit {
     protected width = input<number>(300)
     protected height = input<number>(300)
     protected mu = model<number>(.5)
