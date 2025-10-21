@@ -1,4 +1,4 @@
-import { Component, ElementRef, input, model, ViewChild, AfterViewInit, inject } from '@angular/core';
+import { Component, input, model, AfterViewInit, inject } from '@angular/core';
 import {MatSliderModule} from '@angular/material/slider'
 import { FormsModule } from '@angular/forms';
 import { renderDistribution } from '../../renderdist';

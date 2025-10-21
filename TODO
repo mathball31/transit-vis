@@ -7,7 +7,10 @@ x integrate with angular or react
 x update sliders to angular and make them work
 x integrate slider into rendering
 x factor canvas out of normal-distribution-controls
-. angularize the other distributions
+\ angularize the other distributions
+. move controls to right side of page
+
+. render multiple distributions
 
 
 . sample riders/locations
@@ -17,3 +20,4 @@ x factor canvas out of normal-distribution-controls
 
 
 x automate compile and pack
+. testing

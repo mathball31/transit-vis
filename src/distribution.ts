@@ -47,3 +47,28 @@ export function normalDistribution(width = 300, height = 300, mu: number = width
     /* eslint-enable @typescript-eslint/no-unused-vars */
     return fillDistributionFromFormula(width, height, formula)
 }
+
+export function xy(x: number, y: number) {
+    return {x: x, y: y}
+}
+
+/**
+ * Note this assumes a cross correlation of zero, and is not normalized. 
+ * @param width 
+ * @param height 
+ * @param mu 
+ * @param sigma 
+ * @returns 
+ */
+export function normal2dDistribution(width = 300, height = 300, mu = xy(width/2, height/2), sigma = xy(width/2, height/2)): Distribution {
+    function formula(x: number, y: number) {
+        const dx = x-mu.x
+        const dy = y-mu.y
+        const x_term = (dx/sigma.x)**2
+        // const cross_corr_term = -2 * (dx/sigma.y) * (dy/sigma.x)
+        const y_term = (dy/sigma.y)**2
+        const exp = -.5 * (x_term + y_term)
+        return Math.exp(exp)
+    }
+    return fillDistributionFromFormula(width, height, formula)
+}

@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, ViewChild, AfterViewInit } from '@angular/core';
 import { CanvasContextWrapper } from '../canvas-context-wrapper';
 
 @Component({
@@ -7,7 +7,7 @@ import { CanvasContextWrapper } from '../canvas-context-wrapper';
   templateUrl: './canvas.html',
   styleUrl: './canvas.css'
 })
-export class Canvas {
+export class Canvas implements AfterViewInit {
     public width = input(600)
     public height = input(600)
 
