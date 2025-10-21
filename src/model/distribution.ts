@@ -1,7 +1,35 @@
-export interface Distribution {
+import { GLOBAL_canvasHeight, GLOBAL_canvasWidth, GLOBAL_mapHeight, GLOBAL_mapWidth } from "../GLOBALS"
+
+export interface DistributionData {
     data: number[]
     width: number
     height: number
+}
+
+export class Distribution {
+    data: number[] = []
+    width: number
+    height: number
+    constructor(width = GLOBAL_mapWidth, height = GLOBAL_mapHeight, data?: number[]) {
+        this.width = width
+        this.height = height
+        this.data = data ?? new Array(width * height).fill(0)
+    }
+
+    public toImageData(
+        color = {red: 0, green: 0, blue: 0, alpha: .5}
+    ): ImageData {
+        // const imageData = ctx.createImageData(dist.width, dist.height)
+        const imageData = new ImageData(this.width, this.height)
+        for (let i = 0; i * 4 < imageData.data.length; i++) {
+            imageData.data[4*i] = 255-(((this.data[i] ?? 0)  * 255) * (1-color.red))
+            imageData.data[4*i+1] = 255-(((this.data[i] ?? 0)  * 255) * (1-color.green))
+            imageData.data[4*i+2] = 255-(((this.data[i] ?? 0)  * 255) * (1-color.blue))
+            imageData.data[4*i+3] = color.alpha * 255     // transparency
+        }
+
+        return imageData
+    }
 }
 
 
@@ -21,7 +49,7 @@ function fillDistributionFromFormula(width: number, height: number, formula: (x:
     }
 }
 
-export function blankDistribution(width = 300, height = 300): Distribution {
+export function blankDistribution(width = GLOBAL_canvasWidth, height = GLOBAL_canvasHeight): DistributionData {
     return {
         data: new Array(width * height).fill(100), 
         width: width, 
@@ -29,7 +57,7 @@ export function blankDistribution(width = 300, height = 300): Distribution {
     }
 }
 
-export function linearGradient(width = 300, height = 300): Distribution {
+export function linearGradient(width = GLOBAL_canvasWidth, height = GLOBAL_canvasHeight): DistributionData {
     /* eslint-disable @typescript-eslint/no-unused-vars */
     function formula(x: number, y: number) {
         return x / width
@@ -38,7 +66,7 @@ export function linearGradient(width = 300, height = 300): Distribution {
     return fillDistributionFromFormula(width, height, formula)
 }
 
-export function normalDistribution(width = 300, height = 300, mu: number = width/2, sigma: number = width/6): Distribution {
+export function normalDistribution(width = GLOBAL_canvasWidth, height = GLOBAL_canvasHeight, mu: number = width/2, sigma: number = width/6): DistributionData {
     // const normalizeFactor = Math.sqrt(2 * Math.PI * sigma)
     /* eslint-disable @typescript-eslint/no-unused-vars */
     function formula(x: number, y: number) {
@@ -60,7 +88,7 @@ export function xy(x: number, y: number) {
  * @param sigma 
  * @returns 
  */
-export function normal2dDistribution(width = 300, height = 300, mu = xy(width/2, height/2), sigma = xy(width/2, height/2)): Distribution {
+export function normal2dDistribution(width = GLOBAL_canvasWidth, height = GLOBAL_canvasHeight, mu = xy(width/2, height/2), sigma = xy(width/2, height/2)): DistributionData {
     function formula(x: number, y: number) {
         const dx = x-mu.x
         const dy = y-mu.y

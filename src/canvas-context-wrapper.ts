@@ -4,5 +4,5 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CanvasContextWrapper {
-    public context: CanvasRenderingContext2D | undefined
+    public context: CanvasRenderingContext2D | undefined 
 }

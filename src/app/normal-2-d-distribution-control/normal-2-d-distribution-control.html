@@ -1,12 +1,12 @@
 <p>mu_x: {{mu_x()}}</p>
 <mat-slider min="0" max="1" step=".001">
-    <input matSliderThumb (input)="render()" [(ngModel)]="mu_x">
-</mat-slider>
-<p>sigma_x: {{sigma_x()}}</p>
-<mat-slider min="0" max="1" step=".001">
-    <input matSliderThumb (input)="render()" [(ngModel)]="sigma_x">
+    <input matSliderThumb (input)="update()" [(ngModel)]="mu_x">
 </mat-slider>
 <p>mu_y: {{mu_y()}}</p>
 <mat-slider min="0" max="1" step=".001">
-    <input matSliderThumb (input)="render()" [(ngModel)]="mu_y">
+    <input matSliderThumb (input)="update()" [(ngModel)]="mu_y">
+</mat-slider>
+<p>sigma: {{sigma()}}</p>
+<mat-slider min="0" max="1" step=".001">
+    <input matSliderThumb (input)="update()" [(ngModel)]="sigma">
 </mat-slider>
