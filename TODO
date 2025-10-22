@@ -13,12 +13,14 @@ x factor canvas out of normal-distribution-controls
 x render multiple distributions
 
 x sample from distribution
-. move sample-button to app level
-. sample from transitMap output distribution
-. draw sample point
+x move sample-button to app level
+x sample from transitMap output distribution
+. normalize and weight input distributions
+x draw sample point
+. split rendering into layers (i.e. don't clear samples when distribution changes)
 
-. sample riders/locations
-    . display
+x sample riders/locations
+    x display
 . route
     . display
 

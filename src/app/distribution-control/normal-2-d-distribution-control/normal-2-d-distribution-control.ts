@@ -11,9 +11,9 @@ import { AbstractDistributionControl } from '../abstract-distribution-control/ab
   styleUrl: './normal-2-d-distribution-control.css'
 })
 export class Normal2DDistributionControl extends AbstractDistributionControl {
-    protected mu_x = model(.5)
-    protected mu_y = model(.5)
-    protected sigma = model(.1)
+    public mu_x = model(.5)
+    public mu_y = model(.5)
+    public sigma = model(.1)
 
     override calculate(): void {
         const mu = xy(this.mu_x() * this.width(), this.mu_y() * this.height())

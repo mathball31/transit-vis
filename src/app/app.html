@@ -1,3 +1,15 @@
 <tv-canvas [width]="canvasWidth" [height]="canvasHeight"></tv-canvas>
-<tv-normal-2-d-distribution-control [transitMap]="transitMap"></tv-normal-2-d-distribution-control>
-<tv-normal-distribution-control [transitMap]="transitMap"></tv-normal-distribution-control>
+<p></p>
+<button (click)="sampleRider()">sampleRider</button>
+<tv-normal-2-d-distribution-control 
+    [mu_x]=".25"
+    (subscribe)="subscribeRider($event)" 
+    [transitMap]="transitMap">
+</tv-normal-2-d-distribution-control>
+<p></p>
+<button (click)="sampleDestination()">sampleDestination</button>
+<tv-normal-2-d-distribution-control 
+    [mu_x]=".75"
+    (subscribe)="subscribeDestination($event)" 
+    [transitMap]="transitMap">
+</tv-normal-2-d-distribution-control>

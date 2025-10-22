@@ -6,7 +6,16 @@ import { Injectable } from '@angular/core';
 export class Renderer {
     public context?: CanvasRenderingContext2D
     
-    render(imageData: ImageData) {
+    renderPoint(x: number, y: number) {
+        if (!this.context) {
+            throw "no Canvas Context"
+        }
+        this.context.beginPath()
+        this.context.ellipse(x,y,1,1,0,0, 2 * Math.PI)
+        this.context.stroke()
+
+    }
+    renderImageData(imageData: ImageData) {
         if (!this.context) {
             throw "no Canvas Context"
         }
