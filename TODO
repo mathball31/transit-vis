@@ -9,9 +9,13 @@ x integrate slider into rendering
 x factor canvas out of normal-distribution-controls
 \ angularize the other distributions
     x refactor shared functionality. Abstract class?
-. move controls to right side of page
 
 x render multiple distributions
+
+x sample from distribution
+. move sample-button to app level
+. sample from transitMap output distribution
+. draw sample point
 
 . sample riders/locations
     . display
@@ -21,3 +25,4 @@ x render multiple distributions
 
 x automate compile and pack
 . testing
+. move controls to right side of page

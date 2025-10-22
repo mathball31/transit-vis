@@ -21,6 +21,11 @@ export abstract class AbstractDistributionControl implements AfterViewInit {
         this.update()
     }
 
+    sample() {
+        const {x, y} = this.distribution.sample()
+        console.log(x,y)
+    }
+
     abstract calculate(): void
 
     update() {

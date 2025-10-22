@@ -6,6 +6,28 @@ export interface DistributionData {
     height: number
 }
 
+
+function binarySearch(list: number[], target: number) {
+    let left = 0
+    let right = list.length - 1
+    let mid = Math.round((right + left) / 2)
+    
+
+    while (left < right) {
+        mid = Math.round((right + left) / 2)
+        if (target < list[mid]) {
+            right = mid - 1
+        }
+        else if (target > list[mid]) {
+            left = mid + 1
+        }
+        if (target == list[mid]) {
+            return mid
+        }
+    }
+    return mid
+}
+
 export class Distribution {
     data: number[] = []
     width: number
@@ -30,10 +52,37 @@ export class Distribution {
         
     }
 
+    
+    /**
+     * 
+     * @returns x,y coordinate sampled from this.distribution
+     */
+    public sample() {
+        const cdf = Array(this.data.length)
+        this.data.forEach((value, index) => {
+            if (index == 0) {
+                cdf[index] = value
+            }
+            else {
+                cdf[index] = value + cdf[index - 1]
+            }
+        })
+
+        const normalizedCdf = cdf.map((val) => val/cdf[cdf.length-1])
+
+
+        const rand = Math.random()
+        const sample = binarySearch(normalizedCdf, rand)
+
+        return {
+            x: sample % this.width, 
+            y: Math.round(sample / this.width)
+        }
+    }
+
     public toImageData(
         color = {red: 0, green: 0, blue: 0, alpha: .5}
     ): ImageData {
-        // const imageData = ctx.createImageData(dist.width, dist.height)
         const imageData = new ImageData(this.width, this.height)
         for (let i = 0; i * 4 < imageData.data.length; i++) {
             imageData.data[4*i] = 255-(((this.data[i] ?? 0)  * 255) * (1-color.red))
