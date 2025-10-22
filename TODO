@@ -8,10 +8,10 @@ x update sliders to angular and make them work
 x integrate slider into rendering
 x factor canvas out of normal-distribution-controls
 \ angularize the other distributions
+    x refactor shared functionality. Abstract class?
 . move controls to right side of page
 
-. render multiple distributions
-
+x render multiple distributions
 
 . sample riders/locations
     . display

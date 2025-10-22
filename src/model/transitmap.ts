@@ -1,25 +1,24 @@
-import { blankDistribution, Distribution, type DistributionData } from "./distribution.js";
-import { GLOBAL_canvasHeight, GLOBAL_canvasWidth } from '../GLOBALS.js';
+import { Distribution } from "./distribution.js";
+import { Renderer } from "../render/renderer.js";
+import { inject } from "@angular/core";
 
 
+const default_color = {
+        red: .5,
+        blue: .5,
+        green: .5,
+        alpha: 1,
+}
 export class TransitMap {
-    width: number;
-    height: number;
-    riderDist: DistributionData
-
-    constructor(width: number, height: number, dist?: DistributionData) {
-        this.width = width ?? GLOBAL_canvasWidth;
-        this.height = height ?? GLOBAL_canvasHeight;
-
-        this.riderDist = dist ?? blankDistribution(width, height)
-    }
+    private renderer = inject(Renderer)
 
     public inputDistributions: Distribution[] = []
+    public outputDistribution(): Distribution {
+        return this.inputDistributions.reduce(Distribution.add)
+    }
 
 
-
-    //TODO
-    // . how to manage and update multiple distributions?
-    //      . list of subscribed distributions
-    //      . 
+    public render() {
+        this.renderer.render(this.outputDistribution().toImageData(default_color))
+    }
 }

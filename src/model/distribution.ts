@@ -16,6 +16,20 @@ export class Distribution {
         this.data = data ?? new Array(width * height).fill(0)
     }
 
+    public static add(a: Distribution, b: Distribution): Distribution {
+        if (a.width != b.width || a.height != b.height) {
+            throw "mismatched distribution size"
+        }
+
+
+        const data =  a.data.map((value, index) => {
+            return value + b.data[index]
+        })
+
+        return new Distribution(a.width, a.height, data)
+        
+    }
+
     public toImageData(
         color = {red: 0, green: 0, blue: 0, alpha: .5}
     ): ImageData {
