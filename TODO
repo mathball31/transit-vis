@@ -21,10 +21,44 @@ x draw sample point
 
 x sample riders/locations
     x display
-. route
-    . display
+x route
+    x display
 
+x containerize apps
+. create road-network-proto
 
 x automate compile and pack
 . testing
 . move controls to right side of page
+. make controls a generic Directive
+    or somehow make a wrapper that I can easily apply to any variable in the model
+
+
+. bitmap style distribution
+
+. model geography/transportation network
+    . Pedestrian access distribution: 
+      How likely will pedestrians use a tile?
+      0 -> impassible/wall/fence
+      1 -> Comfortable sidewalk
+      (0,1) -> representing various levels of comfort and safety
+        low values: more cars, smalle sidewalk, exposed to the elements
+        high values: well lit, quieter, beautiful, safe
+      tradeoff between time and access
+    . render
+      split range into values e.g. 0, < .2, < .4, < .6, < .8, < 1, 1
+      and color accordingly
+
+. GIS -> bitmap pipeline
+
+. path finding for source/destination pair
+    . ideal route
+    . simulate single rider travel along route
+    . simulate multiple riders/walkers
+    . resolve conflicts/collisions in paths -> congestion
+
+. other modes of transit?
+    . change speed, acceleration
+    . size of vehicle
+    . mode change: walk to car, board bus/train, park bike
+    . mode storage: parking
