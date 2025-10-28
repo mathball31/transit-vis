@@ -1,0 +1,17 @@
+<tv-canvas [width]="canvasWidth" [height]="canvasHeight"></tv-canvas>
+<button (click)="drawGrid()">click</button>
+
+<p>blockWidth: {{blockWidth()}}</p>
+<mat-slider [min]="roadWidth()" max="100" step=".1">
+    <input matSliderThumb (input)="drawGrid()" [(ngModel)]="blockWidth">
+</mat-slider>
+
+<p>blockHeight: {{blockHeight()}}</p>
+<mat-slider [min]="roadWidth()" max="100" step=".1">
+    <input matSliderThumb (input)="drawGrid()" [(ngModel)]="blockHeight">
+</mat-slider>
+
+<p>roadWidth: {{roadWidth()}}</p>
+<mat-slider min="1" max="20" step=".1">
+    <input matSliderThumb (input)="drawGrid()" [(ngModel)]="roadWidth">
+</mat-slider>

@@ -52,6 +52,14 @@ export class Distribution {
         
     }
 
+    public setValue(x: number, y: number, value: number) {
+        this.data[x + y * this.width] = value
+    }
+    public getValue(x: number, y: number) {
+        return this.data[x + y * this.width]
+
+    }
+
     
     /**
      * 
