@@ -3,12 +3,11 @@ import { Canvas } from "../canvas/canvas";
 import { GLOBAL_canvasHeight, GLOBAL_canvasWidth } from '../../GLOBALS';
 import { Renderer } from '../../render/renderer';
 import { Distribution } from '../../model/distribution';
-import { MatSliderModule } from "@angular/material/slider";
-import { FormsModule } from '@angular/forms';
+import { Slider } from "../slider/slider";
 
 @Component({
   selector: 'tv-road-proto-app',
-  imports: [Canvas, MatSliderModule, FormsModule],
+  imports: [Canvas, Slider],
   templateUrl: './road-proto-app.html',
   styleUrl: './road-proto-app.css'
 })
