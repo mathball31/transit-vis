@@ -3,20 +3,22 @@ import { Canvas } from "../canvas/canvas";
 import { GLOBAL_canvasHeight, GLOBAL_canvasWidth } from '../../GLOBALS';
 import { Renderer } from '../../render/renderer';
 import { Slider } from "../slider/slider";
-import { RoadNetwork } from '../../model/road-network';
+import { TransitMap } from '../../model/transitmap';
+import { Normal2DDistributionControl } from "../distribution-control/normal-2-d-distribution-control/normal-2-d-distribution-control";
+import { Distribution } from '../../model/distribution';
 
 
 @Component({
   selector: 'tv-road-proto-app',
-  imports: [Canvas, Slider],
+  imports: [Canvas, Slider, Normal2DDistributionControl],
   templateUrl: './road-proto-app.html',
   styleUrl: './road-proto-app.css'
 })
 export class RoadProtoApp implements AfterViewInit, OnInit {
     protected canvasWidth: number = GLOBAL_canvasWidth
     protected canvasHeight: number = GLOBAL_canvasHeight
-    protected renderer = inject(Renderer)
-    protected roadNetwork = new RoadNetwork()
+    private renderer = inject(Renderer)
+    protected transitMap = new TransitMap()
 
     // road center to road center
     public blockWidth = model(50)
@@ -31,23 +33,23 @@ export class RoadProtoApp implements AfterViewInit, OnInit {
     }
 
     ngAfterViewInit() {
-        this.drawGrid()
+        this.transitMap.render()
     }
 
     protected numIntersections() {
-        return this.roadNetwork.intersections.size
+        return this.transitMap.roadNetwork.intersections.size
     }
 
     connectionsPerIntersection() {
         let totalConnections = 0
-        for (const intersection of this.roadNetwork.intersections.values()) {
+        for (const intersection of this.transitMap.roadNetwork.intersections.values()) {
             totalConnections += intersection.connections.length
         }
-        return totalConnections / this.roadNetwork.intersections.size
+        return totalConnections / this.transitMap.roadNetwork.intersections.size
     }
 
     generateGrid() {
-        this.roadNetwork.generateGrid(
+        this.transitMap.roadNetwork.generateGrid(
             this.startX(), 
             this.startY(), 
             this.canvasWidth, 
@@ -59,15 +61,9 @@ export class RoadProtoApp implements AfterViewInit, OnInit {
         ) 
     }
 
-    drawGrid() {
-        this.roadNetwork.segments.forEach((segment) => {
-            this.renderer.renderPath2D(segment.toPath2D(), this.roadWidth())
-        })
-    }
-
     refreshGrid() {
         this.renderer.context?.clearRect(0,0,this.canvasWidth,this.canvasHeight)
         this.generateGrid()
-        this.drawGrid()
+        this.transitMap.render()
     }
 }

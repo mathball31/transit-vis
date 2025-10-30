@@ -34,3 +34,8 @@
     [max]=20
     [step]=.1
 ></tv-slider>
+<tv-normal-2-d-distribution-control 
+    [mu_x]=".25"
+    (subscribe)="transitMap.addToRiderInputs($event)" 
+    [transitMap]="transitMap">
+></tv-normal-2-d-distribution-control>

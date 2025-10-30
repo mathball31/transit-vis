@@ -1,6 +1,7 @@
 import { Distribution } from "./distribution.js";
 import { Renderer } from "../render/renderer.js";
 import { inject } from "@angular/core";
+import { RoadNetwork } from "./road-network.js";
 
 
 const defaultColor = {
@@ -24,6 +25,7 @@ const destinationColor = {
 export class TransitMap {
     private renderer = inject(Renderer)
 
+    public roadNetwork = new RoadNetwork()
 
     private inputRiderDistributions: Distribution[] = []
     public addToRiderInputs(distribution: Distribution) {
@@ -57,5 +59,10 @@ export class TransitMap {
         } )
         const resultImage = new ImageData(resultData, riderImage.width, riderImage.height)
         this.renderer.renderImageData(resultImage)
+
+        this.roadNetwork.segments.forEach((segment) => {
+            this.renderer.renderPath2D(segment.toPath2D(), segment.width)
+        })
+        
     }
 }
