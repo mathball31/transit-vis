@@ -1,9 +1,11 @@
 import { Point } from "./point"
+import { RoadIntersection } from "./road-intersection"
 
 export class RoadSegment {
     public start: Point
     public end: Point
     public width: number
+    public connections: RoadIntersection[] = []
 
     constructor(start: Point, end: Point, width?: number) {
         this.start = start

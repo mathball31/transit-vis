@@ -3,10 +3,7 @@ import { Canvas } from "../canvas/canvas";
 import { GLOBAL_canvasHeight, GLOBAL_canvasWidth } from '../../GLOBALS';
 import { Renderer } from '../../render/renderer';
 import { Slider } from "../slider/slider";
-import { RoadIntersection } from '../../model/road-intersection';
-import { RoadSegment } from '../../model/road-segment';
-import { serializePoint } from '../../model/point';
-import { rng } from '../../math/rng';
+import { RoadNetwork } from '../../model/road-network';
 
 
 @Component({
@@ -19,8 +16,7 @@ export class RoadProtoApp implements AfterViewInit, OnInit {
     protected canvasWidth: number = GLOBAL_canvasWidth
     protected canvasHeight: number = GLOBAL_canvasHeight
     protected renderer = inject(Renderer)
-    protected segments: RoadSegment[] = []
-    protected intersections = new Map<string, RoadIntersection>()
+    protected roadNetwork = new RoadNetwork()
 
     // road center to road center
     public blockWidth = model(50)
@@ -28,10 +24,7 @@ export class RoadProtoApp implements AfterViewInit, OnInit {
     public roadWidth = model(10)
     public startX = model(20)
     public startY = model(20)
-
     public skipRate = model(0)
-
-    private seed = Math.random()
 
     ngOnInit() {
         this.generateGrid()
@@ -42,57 +35,32 @@ export class RoadProtoApp implements AfterViewInit, OnInit {
     }
 
     protected numIntersections() {
-        return this.intersections.size
+        return this.roadNetwork.intersections.size
     }
 
     connectionsPerIntersection() {
         let totalConnections = 0
-        for (const intersection of this.intersections.values()) {
+        for (const intersection of this.roadNetwork.intersections.values()) {
             totalConnections += intersection.connections.length
         }
-        return totalConnections / this.intersections.size
+        return totalConnections / this.roadNetwork.intersections.size
     }
 
     generateGrid() {
-        const random = rng("" + this.seed)
-        
-        const intersections = new Map<string, RoadIntersection>()
-        const segments = []
-        for (let y = this.startY(); y < this.canvasHeight; y += this.blockHeight()) {
-            for (let x = this.startX(); x < this.canvasWidth; x += this.blockWidth()) {
-                intersections.set(serializePoint({x,y}), new RoadIntersection({x, y}))
-            }
-        }
-        for (let y = this.startY(); y < this.canvasHeight; y += this.blockHeight()) {
-            for (let x = this.startX(); x < this.canvasWidth; x += this.blockWidth()) {
-                if (x != this.startX() && random() > this.skipRate()) {
-                    const westSegment = new RoadSegment({x: x-this.blockWidth(), y: y}, {x,y}, this.roadWidth())
-
-                    intersections.get(serializePoint(westSegment.start))?.connections.push(westSegment)
-                    intersections.get(serializePoint(westSegment.end))?.connections.push(westSegment)
-                    segments.push(westSegment)
-                }
-                if (y != this.startY() && random() > this.skipRate()) {
-                    const northSegment = new RoadSegment({x: x, y: y-this.blockHeight()}, {x,y}, this.roadWidth())
-                    intersections.get(serializePoint(northSegment.start))?.connections.push(northSegment)
-                    intersections.get(serializePoint(northSegment.end))?.connections.push(northSegment)
-                    segments.push(northSegment)
-                }
-            }
-        }
-        for (const [key, intersection] of intersections) {
-            if (intersection.connections.length == 0) {
-                intersections.delete(key)
-            }
-        }
-
-        this.segments = segments
-        this.intersections = intersections
-
+        this.roadNetwork.generateGrid(
+            this.startX(), 
+            this.startY(), 
+            this.canvasWidth, 
+            this.canvasHeight, 
+            this.blockWidth(), 
+            this.blockHeight(), 
+            this.roadWidth(),
+            this.skipRate(),
+        ) 
     }
 
     drawGrid() {
-        this.segments.forEach((segment) => {
+        this.roadNetwork.segments.forEach((segment) => {
             this.renderer.renderPath2D(segment.toPath2D(), this.roadWidth())
         })
     }
