@@ -28,6 +28,8 @@ x containerize apps
 \ create road-network-proto
     x start with a basic grid
     \ expose some variables: e.g. block length, road width, connections per intersection
+    x stabilize skipRate randomness
+    . generate walk radius
     . generate routes along grid
     . show e.g. 5 min walking radius as variables change
 

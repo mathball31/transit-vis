@@ -6,6 +6,8 @@ import { Slider } from "../slider/slider";
 import { RoadIntersection } from '../../model/road-intersection';
 import { RoadSegment } from '../../model/road-segment';
 import { serializePoint } from '../../model/point';
+import { rng } from '../../math/rng';
+
 
 @Component({
   selector: 'tv-road-proto-app',
@@ -29,6 +31,8 @@ export class RoadProtoApp implements AfterViewInit, OnInit {
 
     public skipRate = model(0)
 
+    private seed = Math.random()
+
     ngOnInit() {
         this.generateGrid()
     }
@@ -50,6 +54,8 @@ export class RoadProtoApp implements AfterViewInit, OnInit {
     }
 
     generateGrid() {
+        const random = rng("" + this.seed)
+        
         const intersections = new Map<string, RoadIntersection>()
         const segments = []
         for (let y = this.startY(); y < this.canvasHeight; y += this.blockHeight()) {
@@ -59,14 +65,14 @@ export class RoadProtoApp implements AfterViewInit, OnInit {
         }
         for (let y = this.startY(); y < this.canvasHeight; y += this.blockHeight()) {
             for (let x = this.startX(); x < this.canvasWidth; x += this.blockWidth()) {
-                if (x != this.startX() && Math.random() > this.skipRate()) {
+                if (x != this.startX() && random() > this.skipRate()) {
                     const westSegment = new RoadSegment({x: x-this.blockWidth(), y: y}, {x,y}, this.roadWidth())
 
                     intersections.get(serializePoint(westSegment.start))?.connections.push(westSegment)
                     intersections.get(serializePoint(westSegment.end))?.connections.push(westSegment)
                     segments.push(westSegment)
                 }
-                if (y != this.startY() && Math.random() > this.skipRate()) {
+                if (y != this.startY() && random() > this.skipRate()) {
                     const northSegment = new RoadSegment({x: x, y: y-this.blockHeight()}, {x,y}, this.roadWidth())
                     intersections.get(serializePoint(northSegment.start))?.connections.push(northSegment)
                     intersections.get(serializePoint(northSegment.end))?.connections.push(northSegment)
@@ -74,6 +80,12 @@ export class RoadProtoApp implements AfterViewInit, OnInit {
                 }
             }
         }
+        for (const [key, intersection] of intersections) {
+            if (intersection.connections.length == 0) {
+                intersections.delete(key)
+            }
+        }
+
         this.segments = segments
         this.intersections = intersections
 

@@ -1,3 +1,5 @@
+import { Point } from "./point"
+
 export class RoadSegment {
     public start: Point
     public end: Point
