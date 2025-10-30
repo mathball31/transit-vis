@@ -15,14 +15,29 @@ export class Renderer {
         this.context.stroke()
 
     }
-    renderPath(startX: number, startY: number, endX: number, endY: number) {
+
+    renderPath(startX: number, startY: number, endX: number, endY: number, width?: number) {
         if (!this.context) {
             throw "no Canvas Context"
         }
-        this.context?.beginPath()
-        this.context?.moveTo(startX, startY)
-        this.context?.lineTo(endX, endY)
-        this.context?.stroke()
+        if (width) {
+            this.context.lineWidth = width
+        }
+        this.context.beginPath()
+        this.context.moveTo(startX, startY)
+        this.context.lineTo(endX, endY)
+        this.context.stroke()
+
+    }
+
+    renderPath2D(path: Path2D, width?: number) {
+        if (!this.context) {
+            throw "no Canvas Context"
+        }
+        if (width) {
+            this.context.lineWidth = width
+        }
+        this.context.stroke(path)
 
     }
     renderImageData(imageData: ImageData) {

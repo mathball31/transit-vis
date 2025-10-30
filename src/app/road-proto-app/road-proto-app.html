@@ -1,9 +1,19 @@
 <tv-canvas [width]="canvasWidth" [height]="canvasHeight"></tv-canvas>
 
+<p>Number of Intersections: {{numIntersections()}}</p>
+<p>Average Connections per Intersection: {{connectionsPerIntersection().toFixed(2)}}</p>
+<tv-slider
+    name="skipRate"
+    [(modelValue)]="skipRate" 
+    (valueChange)="refreshGrid()" 
+    [min]=0
+    [max]=1
+    [step]=.01
+></tv-slider>
 <tv-slider 
     name="blockWidth" 
     [(modelValue)]="blockWidth" 
-    (valueChange)="drawGrid()" 
+    (valueChange)="refreshGrid()" 
     [min]=roadWidth()
     [max]=100
     [step]=.1
@@ -11,7 +21,7 @@
 <tv-slider 
     name="blockHeight" 
     [(modelValue)]="blockHeight" 
-    (valueChange)="drawGrid()" 
+    (valueChange)="refreshGrid()" 
     [min]=roadWidth()
     [max]=100
     [step]=.1
@@ -19,7 +29,7 @@
 <tv-slider 
     name="roadWidth" 
     [(modelValue)]="roadWidth" 
-    (valueChange)="drawGrid()" 
+    (valueChange)="refreshGrid()" 
     [min]=1
     [max]=20
     [step]=.1
